@@ -29,7 +29,7 @@ export default async () => {
                 //  visualizer({brotliSize : true, gzipSize: true}) as PluginOption,
                 // viteCompression({algorithm:'brotliCompress',verbose:true}),
                 //reactSWC(),//
-                mkcert({}),
+              //  mkcert({}),
                 react(),//
                 /*   viteExternalsPlugin({
                        ramda: 'R',
@@ -63,7 +63,7 @@ export default async () => {
                 cors:{allowedHeaders: '*',exposedHeaders:"*", methods:"",origin:"*"},
                 http2:{},
                 watch: './src',
-                https: {allowHalfOpen:true,insecureHTTPParser:true},
+               // https: {allowHalfOpen:true,insecureHTTPParser:true},
                 host: '0.0.0.0',
                 port: VITE_PORT,
                 appType:'mpa',

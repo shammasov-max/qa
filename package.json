@@ -26,6 +26,7 @@
         "build:front": "yarn workspace front front:build:dev",
         "db:dev": "ssh -L 27017:localhost:27017 root@shammasov.com",
         "dev:admin": "yarn workspace admin dev:admin",
+        "dev:front": "yarn workspace front dev:admin",
         "dev:service": "yarn workspace service dev:service",
         "front:build:dev": "yarn build:styles && yarn workspace front front:build:dev",
         "front:dev:watch": "nodemon -e tsx -w packages/front/src -x yarn front:dev",

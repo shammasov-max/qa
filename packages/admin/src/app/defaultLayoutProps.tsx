@@ -38,7 +38,7 @@ export default (role: Role) =>{
                     icon: <AntdIcons.AccountBookOutlined />,
                 },
                 {
-                    path: "/app/dicts",
+                    path: "/app/issues",
                     name: "Справочники",
                     icon: <AppstoreOutlined />,
                     routes: [

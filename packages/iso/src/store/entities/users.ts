@@ -78,6 +78,20 @@ export type Credentials = {
 type UsersReducer = typeof usersRaw.reducer
 type State = Parameters<UsersReducer>[0]
 
+export const selectUserByEmail = (email: string) => (state) => {
+
+    const users = USERS.selectors.selectEq({email})(state)//state.users
+
+    if (!email)
+        return undefined
+
+    const userByEmail = (users as any as UserVO[]).find(user =>
+            user.email && (
+                user.email.toLowerCase() === email.toLowerCase()
+            )
+    )
+    return userByEmail
+}
 
 var uiAvatarColors = [
     '#775DD0',
@@ -155,6 +169,7 @@ const  stringToHashInt = (str: string) => {
 };
 export const usersResource = {
     ...usersRaw,
+    selectUserByEmail,
     generateDefaultItems: async (state,exampleItem) => {
         return [{id: generateGuid(),email:'miramaxis@gmail.com',password:'12345678', role:'Администратор',firstName:'Администратор',lastName:'Первый', projectIds:[]}  as UserVO]
     },
@@ -162,10 +177,9 @@ export const usersResource = {
         getAbbrName(item),
     selectAvatar: (userId: string) => (state): string => {
         const user:UserVO = usersRaw.selectors.selectById(userId)(state) as any
-        if(user.avatarUrl)
-            return user.avatarUrl
+
         const num = stringToHashInt(userId)
-        return generateGravatar(num, user.name ? user.name.charAt(0) : '', (user.lastname?user.lastname.charAt(0): ''))
+        return generateGravatar(num, user.firstName ? user.firstName.charAt(0) : '', (user.lastName?user.lastName.charAt(0): ''))
     },
 
 }

@@ -85,10 +85,10 @@ const Preloader = () => {
                     <Route path={'/auth'} element={<LoginForm/>}/>
                     <Route path="/app" element={connection.error ? <Navigate to={"/auth"}/> : ((isInApp)? <AppLayout hidePageContainer={true} />: null)}>
                         <Route index={true}  element={<IssuesPages.ListPage />} />
+                        <Route path={"issues"}  element={<IssuesPages.ListPage />} />
                         <Route path={"income"} element={<CommentsPages.ListPage />} />
                         <Route path={"awaited"} element={<CommentsPages.ListPage />} />
                         <Route path={"comments"} element={<CommentsPages.ListPage />} />
-
                         <Route path="projects" element={<ProjectsComponents.ListPage />} />
                         <Route path="users" element={<UsersComponents.ListPage />} />
                     </Route>
