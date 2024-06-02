@@ -1,11 +1,5 @@
 import { AttrFactory, createEntitySlice } from "@shammasov/mydux";
 
-export const selectTrackById = (trackId: string) => (state) => {
-  return Issues.selectors.selectById(trackId)(state) as any as TrackVO;
-};
-export const selectTrackListByIdsList = (trackIds: string[]) => (state)=>{
-    return trackIds.map(trackId => Issues.selectors.selectById(trackId)(state))  as any as TrackVO[]
-}
 export const ISSUES = createEntitySlice('issues',{
         issueNumber: AttrFactory.number({required: true,immutable:true,unique:true, headerName: 'Номер'}),
         projectId: AttrFactory.itemOf({

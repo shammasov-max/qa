@@ -14,7 +14,7 @@ export type EntityModalProps<
   E extends AnyEntitySlice
 > = {
   id?: string
-    fornId?: string
+    formId?: string
  // onSubmit: {(previousState: E['exampleItem']) : void};
   defaultProps?: Partial<E["exampleItem"]>;
   getMeta?: {(previousState: E['exampleItem'], meta?:AntdNiceFormMeta) : AntdNiceFormMeta};
@@ -23,7 +23,7 @@ export const entityModalFactory = <
     E extends AnyEntitySlice
 > (entitySlice: E) =>  NiceModal.create(( props: EntityModalProps<E>) => {
     const {defaultProps, getMeta}=props
-    const [formId] = useState(props.fornId || "entityFormId");
+    const [formId] = useState(props.formId || "entityFormId");
     const dispatch = useDispatch();
     const [isNew] = useState(props.id === "new");
     const [id] = useState(isNew ? generateGuid():props.id);

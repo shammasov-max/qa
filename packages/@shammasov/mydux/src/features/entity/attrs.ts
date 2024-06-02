@@ -51,8 +51,8 @@ const createAttributesFactory =  <
             const formField = ownOptions.formField || {}
             if(ownOptions.required)
                 formField.required = true
-            if(ownOptions.immutable)
-                formField.readOnly = true
+
+
             if(ownOptions.headerName)
                 formField.label = ownOptions.headerName
             formField.key = ownOptions!.name!
