@@ -1,0 +1,14 @@
+{
+  "extends": "../../../tsconfig.json",
+  "ts-node": {
+    "transpileOnly": true
+  },
+
+  "compilerOptions": {
+  "moduleResolution": "nodenext",
+
+    "noEmit": false,
+    "sourceRoot": "./src"
+  },
+  "include": ["./src/"]
+}

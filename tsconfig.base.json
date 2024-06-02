@@ -1,0 +1,40 @@
+{
+  "ts-node": {
+    "transpileOnly": true
+  },
+
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "allowArbitraryExtensions": true,
+    "allowUmdGlobalAccess": true,
+    "module": "CommonJS",
+    "target": "ES2017",
+    "moduleResolution": "Node",
+    "useDefineForClassFields": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "allowJs": true,
+
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "typeRoots": [
+      "./src/typings"
+    ],
+    "types": [
+      "node"
+    ]
+  }
+}

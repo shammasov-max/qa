@@ -1,0 +1,17 @@
+{
+  "name": "@shammasov/utils",
+  "version": "0.2.0",
+  "main": "./src/index.ts",
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@types/faker": "^6.6.9",
+    "@types/ramda": "0.29.10",
+    "@types/uuid": "^9.0.8",
+    "faker": "6.6.6",
+    "nanoid": "3.3.7",
+    "ramda": "0.29.1",
+    "uuid": "3.4.0"
+  }
+}

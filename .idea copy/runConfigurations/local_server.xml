@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="local server" type="NodeJSConfigurationType" application-parameters="NODE_ENV=local" node-parameters="--require ts-node/register --no-warnings" path-to-js-file="./src/index.ts" working-dir="$PROJECT_DIR$/packages/service">
+    <method v="2" />
+  </configuration>
+</component>

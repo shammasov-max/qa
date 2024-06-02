@@ -1,0 +1,13 @@
+{
+  "name": "@shammasov/mydux",
+  "version": "0.2.0",
+  "main": "src/",
+  "files": [
+    "src"
+  ],
+  "typings": "src",
+  "dependencies": {
+    "@shammasov/utils": "*",
+    "uuid": "^3.4.0"
+  }
+}

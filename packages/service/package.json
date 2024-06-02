@@ -1,0 +1,25 @@
+{
+  "name": "service",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git"
+  },
+  "main": "./src/index.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start:service": "cross-env NODE_ENV=local ts-node  ./src/index.ts",
+    "dev:service": "cross-env NODE_ENV=development ts-node ./src/index.ts ",
+    "stage:service": "cross-env NODE_ENV=staging ts-node  ./src/index.ts ",
+    "prod:service": "cross-env NODE_ENV=production ts-node  ./src/index.ts ",
+    "debug": "node --inspect-brk=0.0.0.0:9229  ./src/index.ts",
+    "build": "tsc -p ."
+  },
+  "dependencies": {
+    "@shammasov/mydux": "workspace:^0.2.0",
+    "@shammasov/pino-clickhouse-transport": "workspace:^0.1.0",
+    "@shammasov/utils": "workspace:^0.2.0",
+    "iso": "^0.1.0"
+  }
+}
