@@ -21,6 +21,8 @@ import NiceModal from "@ebay/nice-modal-react";
 import LoginForm from "./auth/LoginForm";
 import AppLayout from "./AppLayout";
 import {UsersComponents} from "../pages/UsersPage";
+import { createEntityPages } from '../pages/core.tsx'
+import { COMMENTS, ISSUES, TOPICS } from 'iso'
 
 export const AdminApp = ({ store }: { store: AdminReduxStore }) => (
   <Provider store={store}>
@@ -82,9 +84,13 @@ const Preloader = () => {
                     <Route index={true}  element={<div style={{color:'white'}}>Loading</div>}/>
                     <Route path={'/auth'} element={<LoginForm/>}/>
                     <Route path="/app" element={connection.error ? <Navigate to={"/auth"}/> : ((isInApp)? <AppLayout hidePageContainer={true} />: null)}>
-                        <Route index={true}  element={<UsersComponents.ListPage />} />
-                        <Route path="users" element={<UsersComponents.ListPage />} />
+                        <Route index={true}  element={<IssuesPages.ListPage />} />
+                        <Route path={"income"} element={<CommentsPages.ListPage />} />
+                        <Route path={"awaited"} element={<CommentsPages.ListPage />} />
+                        <Route path={"comments"} element={<CommentsPages.ListPage />} />
+
                         <Route path="projects" element={<ProjectsComponents.ListPage />} />
+                        <Route path="users" element={<UsersComponents.ListPage />} />
                     </Route>
                </Routes>
 
@@ -94,7 +100,9 @@ const Preloader = () => {
     )
 }
 
-
+const IssuesPages =createEntityPages(ISSUES)
+const CommentsPages = createEntityPages(COMMENTS)
+const TopicsPages = createEntityPages(TOPICS)
 const AdminLayout = () =>
     <Layout>
         <Sider breakpoint="lg" >
