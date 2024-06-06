@@ -1,7 +1,7 @@
 import {AttrFactory, createEntitySlice} from "@shammasov/mydux";
 
 export const TOPICS = createEntitySlice('topics', {
-    topicName: AttrFactory.string({
+    name: AttrFactory.string({
         required: true,
         unique: true,
         headerName: 'Тематика',

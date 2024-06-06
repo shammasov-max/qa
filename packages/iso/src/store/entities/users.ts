@@ -21,16 +21,11 @@ const usersRaw = createEntitySlice(
       required: true,
       colDef: false,
     }),
-    firstName: AttrFactory.string({
+    name: AttrFactory.string({
       required: true,
       colDef: { width: 250 },
-      headerName: "Имя",
+      headerName: "ФИО",
     }),
-      lastName: AttrFactory.string({
-          required: true,
-          colDef: { width: 250 },
-          headerName: "Фамилия",
-      }),
         role: AttrFactory.enum({
           required: true,
           headerName: "Роль",
@@ -171,7 +166,7 @@ export const usersResource = {
     ...usersRaw,
     selectUserByEmail,
     generateDefaultItems: async (state,exampleItem) => {
-        return [{id: generateGuid(),email:'miramaxis@gmail.com',password:'12345678', role:'Администратор',firstName:'Администратор',lastName:'Первый', projectIds:[]}  as UserVO]
+        return [{id: generateGuid(),email:'miramaxis@gmail.com',password:'12345678', role:'Администратор',name:'Главный И.О.', projectIds:[]}  as UserVO]
     },
     getItemName: (item) =>
         getAbbrName(item),

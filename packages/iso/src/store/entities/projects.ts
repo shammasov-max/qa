@@ -3,7 +3,7 @@ import { AttrFactory, createEntitySlice } from "@shammasov/mydux";
 export const PROJECTS = createEntitySlice(
   "projects",
   {
-    projectName: AttrFactory.string({
+    name: AttrFactory.string({
       headerName: "Название проекта",
       required: true,
         unique: true,
@@ -18,6 +18,8 @@ export const PROJECTS = createEntitySlice(
 
   },
   {
+      nameProp:'projectName',
+
     langRU: {
       singular: "Прoект",
       plural: "Проекты",

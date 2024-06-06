@@ -1,7 +1,6 @@
 import { AttrFactory, createEntitySlice } from "@shammasov/mydux";
 
 export const ISSUES = createEntitySlice('issues',{
-        issueNumber: AttrFactory.number({required: true,immutable:true,unique:true, headerName: 'Номер'}),
         projectId: AttrFactory.itemOf({
             required: true,
             headerName: 'Проект',
@@ -9,7 +8,7 @@ export const ISSUES = createEntitySlice('issues',{
             immutable: true,
             required: true}),
         topic: AttrFactory.string({required: true, headerName: 'Тема'}),
-        title: AttrFactory.string({required: true, headerName: 'Заголовок',unique: true}),
+        name: AttrFactory.string({required: true, headerName: 'Заголовок',unique: true}),
         issuedDate: AttrFactory.date({headerName: 'Дата создания',immutable:true, required: true}),
         plannedDate: AttrFactory.date({headerName: 'Запланировано'}),
         completedDate: AttrFactory.date({headerName: 'Дата завершения'}),
