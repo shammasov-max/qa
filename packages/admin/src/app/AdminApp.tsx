@@ -23,6 +23,7 @@ import AppLayout from "./AppLayout";
 import {UsersComponents} from "../pages/UsersPage";
 import { createEntityPages } from '../pages/core.tsx'
 import { COMMENTS, ISSUES, TOPICS } from 'iso'
+import { createGenericPagesForEntity } from '../generic-ui/createGenericPagesForEntity.tsx'
 
 export const AdminApp = ({ store }: { store: AdminReduxStore }) => (
   <Provider store={store}>
@@ -100,9 +101,9 @@ const Preloader = () => {
     )
 }
 
-const IssuesPages =createEntityPages(ISSUES)
-const CommentsPages = createEntityPages(COMMENTS)
-const TopicsPages = createEntityPages(TOPICS)
+const IssuesPages =createGenericPagesForEntity(ISSUES)
+const CommentsPages = createGenericPagesForEntity(COMMENTS)
+const TopicsPages = createGenericPagesForEntity(TOPICS)
 const AdminLayout = () =>
     <Layout>
         <Sider breakpoint="lg" >

@@ -1,5 +1,5 @@
 import { FloatButton, FloatButtonProps } from "antd";
-import {AntdIcons} from "../../elements/AntdIcons";
+import {AntdIcons}                       from "../AntdIcons.tsx";
 
 export default (props: FloatButtonProps) => {
   return (

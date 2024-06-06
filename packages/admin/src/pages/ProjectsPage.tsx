@@ -1,4 +1,4 @@
 import {PROJECTS} from "iso";
-import {createEntityPages} from "./core";
+import { createGenericPagesForEntity } from '../generic-ui/createGenericPagesForEntity.tsx'
 
-export const ProjectsComponents  = createEntityPages(PROJECTS);
+export const ProjectsComponents  = createGenericPagesForEntity(PROJECTS);

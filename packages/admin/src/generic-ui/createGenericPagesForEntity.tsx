@@ -5,7 +5,7 @@ import {useModal} from "@ebay/nice-modal-react";
 import PanelRGrid from "../generic-ui/grid/PanelRGrid";
 import {Button} from "antd";
 
-export const createEntityPages = <E extends AnyEntitySlice>(entitySlice: AnyEntitySlice) => {
+export const createGenericPagesForEntity = <E extends AnyEntitySlice>(entitySlice: AnyEntitySlice) => {
 
 
 

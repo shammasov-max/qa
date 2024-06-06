@@ -5,8 +5,8 @@ import {useState} from 'react'
 import Icon from 'antd/es/icon'
 import {Link, useNavigate} from 'react-router-dom'
 
-import {AntdIcons} from '../../elements/AntdIcons'
-import {useAuth} from "./useAuth.ts";
+import {AntdIcons} from '../../generic-ui/AntdIcons.tsx'
+import {useAuth}   from "./useAuth.ts";
 
 export default () => {
 

@@ -1,8 +1,8 @@
 import * as Icons from '@ant-design/icons';
 import {AppstoreOutlined, BarChartOutlined, CalendarOutlined, ImportOutlined, MailOutlined} from '@ant-design/icons';
-import React from 'react'
-import {AntdIcons} from '../elements/AntdIcons'
-import {Role} from "iso";
+import React       from 'react'
+import {AntdIcons} from '../generic-ui/AntdIcons.tsx'
+import {Role}      from "iso";
 
 
 export default (role: Role) =>{

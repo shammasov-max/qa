@@ -9,9 +9,9 @@ import {Link, useNavigate} from 'react-router-dom'
 import {USERS} from 'iso'
 import useCurrentUser from '../hooks/useCurrentUser'
 import useAdminState from '../hooks/common/useAdminState'
-import HeadLogo from './HeadLogo'
-import {AntdIcons} from '../elements/AntdIcons'
-import useUI from "../hooks/common/useUI";
+import HeadLogo    from './HeadLogo'
+import {AntdIcons} from '../generic-ui/AntdIcons.tsx'
+import useUI       from "../hooks/common/useUI";
 import {pathnames} from "./pathnames";
 import {Outlet, useLocation} from "react-router";
 import {Content} from "antd/es/layout/layout";

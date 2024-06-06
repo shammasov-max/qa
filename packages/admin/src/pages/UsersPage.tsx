@@ -7,8 +7,9 @@ import { Button } from "antd";
 import {entityModalFactory} from "../generic-ui/EntityModal";
 import { useModal } from "@ebay/nice-modal-react";
 import {createEntityPages} from "./core";
+import { createGenericPagesForEntity } from '../generic-ui/createGenericPagesForEntity.tsx'
 
 
 
 
-export const UsersComponents  = createEntityPages(USERS)
+export const UsersComponents  = createGenericPagesForEntity(USERS)

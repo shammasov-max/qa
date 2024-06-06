@@ -1,5 +1,5 @@
 import { Button, ButtonProps, Popconfirm } from "antd";
-import { AntdIcons } from "../../elements/AntdIcons";
+import { AntdIcons }                       from "../AntdIcons.tsx";
 
 export default ({ onClick, ...props }: ButtonProps) => {
   return (
