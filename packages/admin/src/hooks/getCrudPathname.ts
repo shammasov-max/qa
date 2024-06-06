@@ -1,6 +1,5 @@
 import {AnyAttributes, EntitySlice} from "@shammasov/mydux";
 
-
 export default <Attrs extends AnyAttributes,EID extends string>(entity:EntitySlice<Attrs,EID> ) => ({
     view: () => '/app/in/'+entity.EID,
     create: (defaultProps:Partial< Record<keyof Attrs, string>> = {}) =>
@@ -12,5 +11,3 @@ export default <Attrs extends AnyAttributes,EID extends string>(entity:EntitySli
             ? '/app/in/'+entity.EID+'/#'+id
             :'/app/in/'+entity.EID+'/'+id,
 })
-
-

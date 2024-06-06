@@ -2,6 +2,7 @@
 packages/admin/forked-static
 packages/front/dist
 packages/static
+packages/deploy
 deploy/.volumes
 deploy/.uploads
 

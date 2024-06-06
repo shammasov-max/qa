@@ -71,7 +71,7 @@ export const useColumns = <
     ): ColDef<ItemByAttrs<Attrs>,ItemByAttrs<Attrs>[K]> => {
         const attr = res.attributes[property] as any as Attrs[K]
         const colInit :ColDef<Item, Item[K]>= {
-            headerName: attr.name,
+            headerName: attr.headerName || attr.name,
             resizable: true,
             sortable: true,
             field: property,

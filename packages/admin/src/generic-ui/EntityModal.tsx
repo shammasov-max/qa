@@ -13,11 +13,11 @@ import {createReferenceInput} from "./grid/ReferenceInput.tsx";
 export type EntityModalProps<
   E extends AnyEntitySlice
 > = {
-  id?: string
+    id?: string
     formId?: string
  // onSubmit: {(previousState: E['exampleItem']) : void};
-  defaultProps?: Partial<E["exampleItem"]>;
-  getMeta?: {(previousState: E['exampleItem'], meta?:AntdNiceFormMeta) : AntdNiceFormMeta};
+    defaultProps?: Partial<E["exampleItem"]>;
+    getMeta?: {(previousState: E['exampleItem'], meta?:AntdNiceFormMeta) : AntdNiceFormMeta};
 }
 export const entityModalFactory = <
     E extends AnyEntitySlice

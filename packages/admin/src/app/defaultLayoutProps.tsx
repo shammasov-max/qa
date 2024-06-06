@@ -37,14 +37,14 @@ export default (role: Role) =>{
                     name: "Комментарии",
                     icon: <AntdIcons.AccountBookOutlined />,
                 },
-                {
-                    path: "/app/issues",
+         /*       {
+                    path: "/app/dictionaries",
                     name: "Справочники",
                     icon: <AppstoreOutlined />,
                     routes: [
 
                     ]
-                },
+                },*/
                 {
                     path: "/app/users",
                     name: "Пользователи",

@@ -17,6 +17,7 @@ export type AttrCommonMeta = {
     colDef?: ColDef | false
     select?: boolean
     name?:string
+    faker?: (attr:AnyAttrMeta,item: object, state: objetc) => any,
     formField:Partial<AntdNiceFormField>
 }
 

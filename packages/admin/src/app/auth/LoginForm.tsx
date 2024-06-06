@@ -17,7 +17,7 @@ export default () => {
 
 
   const [email, setEmail] = useState(window.location.hostname === 'localhost' ? 'miramaxis@gmail.com' : undefined)
-  const [password, setPassword] = useState(window.location.hostname === 'localhost' ? '123456' : undefined)
+  const [password, setPassword] = useState(window.location.hostname === 'localhost' ? '12345678' : undefined)
   const [remember, setRemember] = useState(false)
 
   return (
@@ -72,4 +72,3 @@ export default () => {
   );
 
 }
-

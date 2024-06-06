@@ -59,10 +59,7 @@ export type StateWithEntity<E> = E extends EntitySlice<infer Attrs, infer EID>
 export type StateWithEntityByEIDAttrs<Attrs extends AnyAttributes,EID extends string = string> = {
     [k in CamelCase<EID>]: ItemByAttrs<Attrs>
 }
-export type  LinkedAttrs<Attrs extends EmpheralAttributes = AnyAttributes ,EID extends string = string> = {
 
-
-}
 
 export const createEntitySlice = <Attrs extends EmpheralAttributes = AnyAttributes ,EID extends string = string>
 (EID: EID, attributes: Attrs,{langRU,selectors,...rest}: EntityOptions< Attrs,EID>) => {
