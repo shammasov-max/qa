@@ -14,6 +14,7 @@ import { UserPic }       from '../../elements/UsersGroup.tsx'
 import useCurrentUser    from '../../hooks/useCurrentUser.ts'
 import { useParams }     from 'react-router'
 import { ProjectListItem } from '../ProjectsPage.tsx'
+import IssueThread from './IssueThread.tsx'
 export default () => {
     const {projectId} = useParams<{projectId?: string}>()
 const dispatch = useDispatch()
@@ -67,6 +68,7 @@ const currentUser = useCurrentUser()
             title: 'Вопрос',
             dataIndex: 'description',
             key: 'description',
+            render: (description, record) => <span>{description}</span>
         },
         {
             title: 'Ответственный',
@@ -79,13 +81,13 @@ const currentUser = useCurrentUser()
             key: 'status',
             dataIndex: 'status',
             render: (status,record) =>
-                <span>
+
 
                 <Tag color={'blue'} key={status}>
                     {status}
                 </Tag>
 
-                </span>
+
             ,
         },
         {
@@ -126,7 +128,7 @@ const currentUser = useCurrentUser()
 
             <CreateButton onCreate={onItemAdd} resource={ISSUES} />
         </Space>
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={data}    expandedRowRender={record => <IssueThread issueId={record.id}/> }/>
     </div>
     )
 }

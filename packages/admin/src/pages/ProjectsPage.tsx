@@ -13,14 +13,15 @@ import EditButton                                        from '../generic-ui/but
 import UsersGroup                                        from '../elements/UsersGroup.tsx'
 Typography
 const Text = Typography.Text;
+export const ProjectModal = entityModalFactory(PROJECTS);
 export const ProjectsList = () => {
-    const ItemModal = entityModalFactory(PROJECTS);
+
 
     const list: ProjectVO = useAdminSelector(PROJECTS.selectors.selectAll);
 
     type E = AnyEntitySlice;
 
-    const itemModal = useModal(ItemModal);
+    const itemModal = useModal(ProjectModal);
 
     const onItemAdd = async () => {
         const item: E["exampleItem"] = await itemModal.show({
@@ -29,14 +30,7 @@ export const ProjectsList = () => {
         });
 
     };
-    const onItemEdit = async (itemId: string) => {
-        const item: E["exampleItem"] = await itemModal.show({
-            id: itemId,
-            formId: "entityFormId",
-        });
-    };
 
-    const dispatch = useDispatch();
 
     return    <div><Row justify={'end'}><CreateButton resource={PROJECTS} onCreate={onItemAdd}/></Row> <List
         className="demo-loadmore-list"
@@ -54,6 +48,16 @@ export const ProjectsList = () => {
 
 
 export const ProjectListItem = ({item}:{item: ProjectVO}) => {
+
+    const dispatch = useDispatch();
+    const itemModal = useModal(ProjectModal);
+    const onItemEdit = async (itemId: string) => {
+        const item: E["exampleItem"] = await itemModal.show({
+            id: itemId,
+            formId: "entityFormId",
+        });
+    };
+
     return <List.Item
 
         extra={

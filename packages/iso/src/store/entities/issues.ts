@@ -60,10 +60,8 @@ export function formatMSS(s){
      return(s-(s%=60))/60+(9<s?':':':0')+s
  }
 
-
-
-export const MP3TagProps: (keyof typeof ISSUES.attributes)[]= [
-    'title','album','bpm','artist','year','genre','mood','duration'] as const
+export const statuses = ['Новый','На уточнении','Ответ получен','Закрыт','Отменён'] as const
+export const priority = ['Низкий','Средний','Высокий','Безотлагательный'] as const
 
 
 export type IssueVO =typeof ISSUES.exampleItem
