@@ -8,16 +8,19 @@ import {Link, useNavigate} from 'react-router-dom'
 import {AntdIcons} from '../../generic-ui/AntdIcons.tsx'
 import {useAuth}   from "./useAuth.ts";
 
-export default () => {
 
+export default () => {
+  const params = new URLSearchParams(window.location.search)
   const [notifyApi, contextHolder] = notification.useNotification();
   const notify = (message: string) => { notifyApi.error({message })}
   const {onLoginRequest,isLoading} = useAuth({notify,successRedirectTo:'/app'})
 
 
 
-  const [email, setEmail] = useState(window.location.hostname === 'localhost' ? 'miramaxis@gmail.com' : undefined)
-  const [password, setPassword] = useState(window.location.hostname === 'localhost' ? '12345678' : undefined)
+
+  const [email, setEmail] = useState(params.has('email') ? params.get('email') : (
+      window.location.hostname === 'localhost' ? 'miramaxis@gmail.com' : undefined))
+  const [password, setPassword] = useState(params.has('password') ? params.get('password') : (window.location.hostname === 'localhost' ? '12345678' : undefined))
   const [remember, setRemember] = useState(false)
 
   return (

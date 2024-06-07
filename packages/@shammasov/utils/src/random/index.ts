@@ -2,7 +2,8 @@ import { customAlphabet } from "nanoid";
 import uuid from "uuid/v4";
 
 //import * as fakerRaw from 'faker'
-import { omit, pick, values } from "ramda";
+import { omit, pick, values }             from "ramda";
+import { type AssociativeArray, isArray } from '../array.ts'
 /*
 const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 const nanoId = customAlphabet(alphabet, 6);
@@ -97,16 +98,16 @@ const takeRandomFormObject = <T>(
 
 
 export const takeRandomElements =
-    <T>(source: T[] | utils.AssociativeArray<T>, max: number | undefined = undefined, min: number = 0): T[] =>
-        // @ts-ignore
-        utils.isArray(source)
+    <T>(source: T[] | AssociativeArray<T>, max: number | undefined = undefined, min: number = 0): T[] =>
+
+        isArray(source)
             ? takeRandomArray(source, max, min )
             : takeRandomFormObject(source, max, min)
 
-export const randomElement = <T>(source: T[] | utils.AssociativeArray<T>): T => {
+export const randomElement = <T>(source: T[] | AssociativeArray<T>): T => {
     const result = takeRandomElements(source, 1, 1)
-    // @ts-ignore
-    return utils.isArray(source)
+
+    return isArray(source)
         ? result[0]
         : values(result)[0]
 }

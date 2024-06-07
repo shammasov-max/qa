@@ -1,16 +1,24 @@
-import {DatePicker, Select} from "antd";
-import locale from "antd/es/date-picker/locale/ru_RU";
+import { DatePicker, Select, Tooltip } from 'antd'
+import locale                          from "antd/es/date-picker/locale/ru_RU";
 import type {CustomCellEditorProps} from "ag-grid-react";
 import {AttrFactory, AttrType} from "@shammasov/mydux";
 import {DefaultOptionType} from "rc-select/lib/Select";
 import {getEntityByTypeName} from "iso";
 import {useSelector} from "react-redux";
 import {reject} from "ramda";
-export type ReferenceInputProps =  {
+import ReactSelect from "react-select";
+import  { components, MultiValueGenericProps } from 'react-select';
+import { Space, Typography } from 'antd';
+import { isArray } from '@shammasov/utils'
+
+const { Text, Link } = Typography;
+
+export type ReferenceInputProps<IsMulti extends boolean = false> =  {
     readOnly?:boolean,
-    onChange?:(value:string|string[])=>void,
+    value: IsMulti extends boolean? string[] : string,
+    onChange?:(value: IsMulti extends boolean? string[]:string)=>void,
     options:DefaultOptionType[]
-    multiple?:boolean
+    multiple?:IsMulti
 
 } & CustomCellEditorProps<any, string[]|string>
 
@@ -28,37 +36,40 @@ export const  createReferenceInput = (attr: RefAttrProps) => (props:ReferenceInp
 }
 
 export const ReferenceInput = ({onChange,value,readOnly,multiple,refEID,filterRefs,  onValueChange,stopEditing,colDef}:   ReferenceInputProps & RefAttrProps) => {
+    const MultiValueLabel = (props: MultiValueGenericProps<DefaultOptionType>) => {
+        return (
+            <Tooltip content={props.data.label}>
+                <Link href={'/app'} underline={true} >{props.data.label}</Link>
+                {/*<components.MultiValueLabel {...props} />
+                 */}</Tooltip>
+        );
+    };
 
 
     const allRefs = useSelector(getEntityByTypeName((refEID.toUpperCase())).selectors.selectAll)
     const refs = filterRefs ? allRefs.filter(filterRefs) : allRefs
     const options = refs.map(i => ({value:i.id, label:i.name}))
-    return             <Select value={value||[]}
-                               onDeselect={(current) => {
+    const currentValue = multiple? (value||[]) : (value||undefined)
+    const currentSelectValue = multiple ? options.filter(i => currentValue.includes(i.value)) : options.find(i => i.value === currentValue)
+    return             <ReactSelect
+        style={{minWidth:'250px'}}
+        components={{ MultiValueLabel: MultiValueLabel }}
+                            isMulti={multiple}
+                                value={currentSelectValue}
+                            onChange={(newValue, actionMeta) =>{
+                                const nextValue = isArray(newValue)? newValue.map(i => i.value) : newValue.value
+                                if(onChange)
+                                    onChange(nextValue)
+                                if(onValueChange)
+                                    onValueChange(nextValue)
+                                if(stopEditing)
+                                    stopEditing()
 
-                                   const nextValue = multiple ? reject(m => m === current, value) :  current
-                                   console.log('Deselect',value,current, nextValue)
-                                    if(onChange)
-                                        onChange(nextValue)
-                                    if(onValueChange)
-                                        onValueChange(nextValue)
-                                    if(stopEditing)
-                                        stopEditing()
+                                                            }}
 
-                               }}
-                                onSelect={ (current, option) => {
-                                    const nextValue = multiple ? [...value,current] :  current
-                                    console.log('Select',value,current, nextValue)
-                                    if(onChange)
-                                        onChange(nextValue)
-                                    if(onValueChange)
-                                        onValueChange(nextValue)
-                                    if(stopEditing)
-                                        stopEditing()
-                                }}
 
-                                mode={multiple ? 'multiple' :undefined}
-                                allowClear={multiple && true}
+
+                                 allowClear={multiple && true}
                                 optionFilterProp={'label'}
                                 showSearch={true}
                                 style={{minWidth:'200px'}}

@@ -88,20 +88,44 @@ export function* connectionSaga(connectionURL = '/api/sse/connect', argOptions: 
     }
 
     yield* fork (connectionWatcher)
-
-        yield* put (connectionSlice.actions.findConnectionRequested ())
+    yield* put (connectionSlice.actions.findConnectionRequested ())
 
 
 
 
     function* runConnection (options = defaultOptions) {
-        const hist = yield* getSagaService (HistoryService)
         showPreloader ()
         try {
             const connectionURL = yield* select ((state) => {
                 return state.connection.connectionURL
             })
+
             let source = new ReconnectingEventSource (connectionURL)
+
+            const channel = eventChannel<MyDuxEvent<any, any> | ReturnType<typeof connectionSlice.actions[keyof typeof connectionSlice.actions]>> (emitter => {
+                const onMessageHandler = (e: MessageEvent) =>
+                     e.type === SSE_REDUX_EVENT && (emitter (JSON.parse (e.data)))
+
+                const onErrorHandler = (e: Event) => {
+                    emitter (connectionSlice.actions.error (JSON.stringify (e)))
+                    emitter (END)
+                }
+
+                const onDisconnect = (e: Event) =>
+                    emitter (connectionSlice.actions.disconnected ())
+
+                const onOpenHandler = (e: Event) =>
+                    emitter (connectionSlice.actions.connected (undefined))
+
+                source.addEventListener (SSE_REDUX_EVENT, onMessageHandler)
+                source.addEventListener ('error', onErrorHandler)
+                source.onerror = ( onErrorHandler )
+                source.addEventListener ('open', onOpenHandler)
+                source.addEventListener ('disconnect', onDisconnect);
+
+                return () =>
+                    source && source.close ()
+            })
 
             const sentGuids: EventGUID[] = []
             const receivedGuids: EventGUID[] = []
@@ -117,48 +141,6 @@ export function* connectionSaga(connectionURL = '/api/sse/connect', argOptions: 
                     }
                 }
             )
-
-            const channel = eventChannel<MyDuxEvent<any, any> | ReturnType<typeof connectionSlice.actions[keyof typeof connectionSlice.actions]>> (emitter => {
-                const onMessageHandler = (e: MessageEvent) => {
-                    console.log ('SSE message', e)
-                    if ( e.type === SSE_REDUX_EVENT )
-                        emitter (JSON.parse (e.data))
-                }
-
-                const onErrorHandler = (e: Event) => {
-                    console.error ('SSE error', e)
-                    emitter (connectionSlice.actions.error (JSON.stringify (e)))
-                    emitter (END)
-                }
-                const onDisconnect = (e: Event) => {
-                    console.log ('onDiconnect', e)
-                    emitter (connectionSlice.actions.disconnected ())
-                }
-                const onOpenHandler = (e: Event) => {
-                    emitter (connectionSlice.actions.connected (undefined))
-                }
-                source.addEventListener (SSE_REDUX_EVENT, onMessageHandler)
-
-                source.addEventListener ('error', onErrorHandler)
-                source.onerror = ( onErrorHandler )
-                source.addEventListener ('open', onOpenHandler)
-                source.addEventListener ('disconnect', e => {
-                    console.log ('Disconnected', e)
-                    onDisconnect (e)
-                });
-                /* const interval = setInterval(() => {
-                 console.log('readyState', source.readyState)
-                 },
-                 100)*/
-                // The subscriber must return an unsubscribe function
-                return () => {
-                    if ( source ) {
-                        source.close ()
-                        //    clearInterval(interval)
-                    }
-                }
-            })
-
             function* readSSE () {
                 while ( true ) {
                     const action = yield* take (channel)
@@ -189,6 +171,7 @@ export function* connectionSaga(connectionURL = '/api/sse/connect', argOptions: 
                     const {
                         userId, storeGuid
                     } = actor
+
                     if ( userId === '0' || userId === undefined )
                         continue
 
@@ -198,9 +181,6 @@ export function* connectionSaga(connectionURL = '/api/sse/connect', argOptions: 
                         ) ) {
                         if ( !action.external ) {
                             sentGuids.push (action.guid)
-                            // const actionToSend = R.assocPath(['info', 'storeGuid'], storeGuid, action)
-
-                            //action.userId = action.userId || action.payload.userId || action.payload.userId
                             action.storeGuid = storeGuid
                             if ( userId !== 'guest' && userId !== 'admin' && userId !== 'service' && userId && !action.userId ) {
                                 if ( !action.userId )
@@ -215,7 +195,7 @@ export function* connectionSaga(connectionURL = '/api/sse/connect', argOptions: 
                             if ( isPersistentAction (action) ) {
 
                                 yield* put (connectionSlice.actions.clientPushStarted (action))
-                                // console.log('sending action', action)
+
                                 try {
                                     const result = yield* call (options.pushCommands, [ sanitizedAction ])
                                     yield* put (connectionSlice.actions.clientPushSuccess (action))

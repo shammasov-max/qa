@@ -1,0 +1,10 @@
+{
+  "appId": "com.shammasov.qtracker",
+  "appName": "qtracker",
+  "webDir": "src",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}

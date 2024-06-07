@@ -18,9 +18,11 @@ import {
 import { getAllSSESessionsChannel, getSSEAdminChannel } from "./sse-channels";
 
 import { SSESessionState, startSSESession } from "./startSSESession";
-import { sessionsSlice } from "./sessionsSlice";
-import { SSESession } from "./common";
-import fastifyPlugin from "fastify-plugin";
+import { sessionsSlice }                    from "./sessionsSlice";
+import { SSESession }                       from "./common";
+import fastifyPlugin                        from "fastify-plugin";
+import type { BackendState, BackendStore }  from 'service/src/store/buildBackendStore.ts'
+import { generateGuid }                     from '@shammasov/utils'
 
 export type SSEPluginOptions = {
   protectedRouteOptions?: RouteShorthandOptions;
@@ -36,6 +38,18 @@ const userSliceExample = createEntitySlice('us', {
 export type UserSliceExample = typeof userSliceExample
  const ormForSSE = composeEntitiesOrm({us:userSliceExample, connection:connectionSlice,dispatcher:dispatcherSlice})
 type StateForSSE = ReturnType<ConfigureBaseStoreOptions< typeof ormForSSE['exampleORMState']>['reducer']>
+ declare module "fastify" {
+    interface PassportUser {
+        id: string;
+        email: string;
+        password: string;
+    }
+
+    interface FastifyRequest {
+        logout: () => Promise<void>;
+        user?: PassportUser;
+    }
+}
 
 
 export type SelectStoreByRequest = (req: FastifyRequest) => StateForSSE
@@ -55,8 +69,8 @@ export type SelectStoreByRequest = (req: FastifyRequest) => StateForSSE
             res(buffer)
         }))
     }
+
     fastify.get( '/api/full-state',
-/*       protectedRouteOptions,*/
        async (request, reply) => {
 
             const credentials = request.body
@@ -69,71 +83,57 @@ export type SelectStoreByRequest = (req: FastifyRequest) => StateForSSE
     )
 
 
-    fastify.post('/api/push-commands',
-        /*   protectedRouteOptions,*/
-        async (request, reply) => {
-            let events: any = request.body
-            if (events['events'])
-                events = events['events']
-
-            if(events && events[0])
-            return reply.send(fastify.store.dispatch(events[0]))
-
-            return reply.status(400).send({Error:'No events sent'})
-        }
-    )
-/*
-        fastify.get<{Querystring:{userId: string, storeGuid: string}}>('/api/sse/find',
+        fastify.post('/api/push-commands',
             async (request, reply) => {
+                let events: any = request.body
 
-                const user = getUserByRequest(request)
-                if(!user)
-                  return  reply.status(403).send({'Error':'Unauthorized'})
-                const params = {storeGuid: generateGuid(), userId:user.id}
-                reply.redirect('/api/sse/connect?'+ new URLSearchParams(params))
+                if (events['events'])
+                    events = events['events']
+
+                if(events && events[0]) {
+                    return reply.send (fastify.store.dispatch (events[0]))
+                } else {
+                    return reply.status (400)
+                        .send ({Error: 'No events sent'})
+                }
             }
-        )*/
+        )
 
-        fastify.get<{Querystring:{userId: string, storeGuid: string}}>(
-            '/api/sse/connect',
-                 async (request: FastifyRequest, reply) => {
+
+        fastify.get('/api/sse/connect', async (request: FastifyRequest, reply) => {
                 try {
-                    const state = selectBootstrapByRequest (request)
-                    const userId = request.user
-                                   ? request.user.id
-                                   : undefined
+                    const storeGuid = generateGuid()
+                    const userId = request.user ? request.user.id : undefined
+                    const boot = selectBootstrapByRequest (request)
 
-                    if ( state && userId ) {
-                        const storeGuid = state.dispatcher.storeGuid
+                    const sessionState = {
+                        userId,
+                        storeGuid,
+                        ip: request.ip,
+                        headers: request.headers
+                    }
 
-                        const sessionState = {
+                    const sseSession = await startSSESession (request.raw, reply.raw, sessionState)
+
+                    sseSession.push (bootstrapAction (Object.assign (boot, {
+                        connection: {preloaded: true},
+                        dispatcher: {
                             userId,
                             storeGuid,
-                            ip: request.ip,
-                            headers: request.headers
+                            grade: 'user'
                         }
-                        const sseSession = await startSSESession (request.raw, reply.raw, sessionState)
-                        const boot = selectBootstrapByRequest (request)
-                        sseSession.push (bootstrapAction (Object.assign (boot, {
-                            connection: {preloaded: true},
-                            dispatcher: {
-                                userId,
-                                storeGuid,
-                                grade: 'user'
-                            }
-                        })), SSE_REDUX_EVENT)
-                        reply.hijack ()
-                    } else {
-                        return reply.status (401)
-                            .send ({'Error': 'Unauthorized'})
+                    })), SSE_REDUX_EVENT)
 
-                    }
-                } catch(e) {
+                    reply.hijack ()
+                } catch ( e ) {
                     return reply.status (401)
                         .send ({'Error': 'Unauthorized'})
                 }
-         }
-        )
+        })
+
+
+
+
         fastify.get(
             '/api/sse/admin',
             async (request, reply) => {

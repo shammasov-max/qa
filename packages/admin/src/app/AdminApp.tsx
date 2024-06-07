@@ -3,7 +3,7 @@ import React from "react";
 import { Provider, useSelector } from "react-redux";
 import { Navigate, Outlet, Route, Routes } from "react-router";
 import {type AdminReduxStore, buildAdminStore, useAdminReduxStore, useAdminSelector} from "./buildAdminStore";
-import {ProjectsComponents} from "../pages/ProjectsPage";
+import {  ProjectsList }                                          from "../pages/ProjectsPage";
 import 'dayjs/locale/ru'
 import ruRU from 'antd/locale/en_US'
 import {
@@ -24,6 +24,7 @@ import {UsersComponents} from "../pages/UsersPage";
 import { createEntityPages } from '../pages/core.tsx'
 import { COMMENTS, ISSUES, TOPICS } from 'iso'
 import { createGenericPagesForEntity } from '../generic-ui/createGenericPagesForEntity.tsx'
+import QTrackPage                            from '../pages/qtrack/QTrackPage.tsx'
 
 export const AdminApp = ({ store }: { store: AdminReduxStore }) => (
   <Provider store={store}>
@@ -45,7 +46,7 @@ const Preloader = () => {
     const isConnecting =  connection.sseReadyState === SSEReadyStatesEnum.CLOSED ||
         connection.sseReadyState === SSEReadyStatesEnum.INITIALIZING;
     console.log({ isInitializing,SSEReadyStatesEnum,connection,isInApp,  isConnecting });
-    if(!connection.error) {
+    if(window.location.pathname!== '/auth' && !connection.error) {
         if ( isInitializing || isConnecting ) {
             return null
         }
@@ -72,6 +73,8 @@ const Preloader = () => {
                             borderRadius: 0,
                         }
                     }}
+
+
                     componentSize={'middle'}
                     locale={ruRU}
                     autoInsertSpaceInButton={true}
@@ -86,11 +89,12 @@ const Preloader = () => {
                     <Route path={'/auth'} element={<LoginForm/>}/>
                     <Route path="/app" element={connection.error ? <Navigate to={"/auth"}/> : ((isInApp)? <AppLayout hidePageContainer={true} />: null)}>
                         <Route index={true}  element={<IssuesPages.ListPage />} />
-                        <Route path={"issues"}  element={<IssuesPages.ListPage />} />
+                        <Route path={"issues"}  element={<QTrackPage />} />
                         <Route path={"income"} element={<CommentsPages.ListPage />} />
                         <Route path={"awaited"} element={<CommentsPages.ListPage />} />
                         <Route path={"comments"} element={<CommentsPages.ListPage />} />
-                        <Route path="projects" element={<ProjectsComponents.ListPage />} />
+                        <Route path="projects" element={<ProjectsList />} />
+                        <Route path="projects/:projectId" element={<QTrackPage />} />
                         <Route path="users" element={<UsersComponents.ListPage />} />
                     </Route>
                </Routes>

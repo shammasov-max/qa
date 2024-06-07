@@ -48,7 +48,7 @@ export default React.forwardRef( <S extends GenericEntitySlice>({columnDefs , fu
 reactiveCustomComponents={true}
                         defaultColDef={{resizable: true,sortable:true,editable:true,cellRenderer:RCellRender.DefaultCellRenderer}}
                         enableRangeSelection={true}
-                        allowContextMenuWithControlKey={true}
+
                         {...props}
                     >
 

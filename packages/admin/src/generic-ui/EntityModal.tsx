@@ -9,6 +9,7 @@ import { DevTool } from "antd-form-devtools";
 import {useDispatch, useSelector} from "react-redux";
 import {generateGuid, isArray, isFunction} from "@shammasov/utils";
 import {createReferenceInput} from "./grid/ReferenceInput.tsx";
+import ReactSelect from 'react-select'
 
 export type EntityModalProps<
   E extends AnyEntitySlice
@@ -46,6 +47,7 @@ export const entityModalFactory = <
                         formField.widget = createReferenceInput(attr)
                         formField.widgetProps = {mode: attr.type === 'listOf'?'multiple':undefined}
                     }
+
                         return formField
                     }),
             };
@@ -77,8 +79,9 @@ export const entityModalFactory = <
                 return
             }
             if(!current[field.name]) {
-                current[field.name] = String(Math.random() * 100)
-            }current[field.name]
+                const attr = entitySlice.attributes[field.name]
+                current[field.name] = (attr && attr.faker )?attr.faker() : undefined// String(Math.random() * 100)
+            }
         })
         form.setFieldsValue(current)
     }
@@ -101,6 +104,7 @@ export const entityModalFactory = <
 
         >
             <Form form={form} initialValues={initialValues} id={formId} >
+
                 <NiceForm meta={meta} form={form}/>
                 <Button onClick={onAutofill}>Autofill</Button>
             </Form>

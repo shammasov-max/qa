@@ -32,13 +32,17 @@ const items: MenuProps["items"] = [
 ];
 
 export type BottomGridApiBar = React.FC<{ag: AgGridReact}>
+export  type PatchColumns <S extends GenericEntitySlice>  ={
+    (defaultColumns: ColDef<S['exampleItem']>[], columnsMap:{[key in keyof S['exampleItem']]: ColDef}) : ColDef<S['exampleItem']>[]
+
+}
 export type PanelRGridProps<S extends GenericEntitySlice>= {
     onCreateClick: Function
     onEdit: Function
     toolbar?: React.ReactNode,
     bottomBar?:  React.ReactNode
     title: string
-    patchColumns?: (defaultColumns:ColDef<S['exampleItem']>[], columnsMap:{[key in keyof S['exampleItem']]:ColDef<S['exampleItem'],S['exampleItem'][key]>}) => ColDef<S['exampleItem']>[]
+    patchColumns?: PatchColumns<S>
 } & RGridProps<S>
 export default  <S extends GenericEntitySlice>({
                                                title,

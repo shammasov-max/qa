@@ -16,6 +16,7 @@ import {pathnames} from "./pathnames";
 import {Outlet, useLocation} from "react-router";
 import {Content} from "antd/es/layout/layout";
 import {useAuth} from "./auth/useAuth.ts";
+import { head } from 'ramda'
 
 const { useToken } = theme;
 
@@ -99,8 +100,9 @@ export default ({proLayout, children,hidePageContainer, ...props}: PageContainer
             title={'Курсовой проект'}
             avatarProps={{
                 icon:<AntdIcons.ArrowDownOutlined/>,
-                src: userAvatarURL,
+                style:{ backgroundColor: currentUser.color},
                 size: "small",
+                children: currentUser.name.split(' ').map(head),
                 title: <Typography.Link><Typography.Text type={"success"}>{currentUser.role}</Typography.Text> {currentUser.email}</Typography.Link>,
                 render: (props, dom) =>
                     <TopProfileDropDown {...props}><Space>{dom}<a href={'#'}><DownOutlined/></a></Space></TopProfileDropDown>

@@ -182,6 +182,7 @@
         "react-redux": "^9.1.0",
         "react-router": "^6.22.0",
         "react-router-dom": "^6.22.0",
+        "react-select": "^5.8.0",
         "react-use": "^17.5.0",
         "recharts": "^2.12.0",
         "recompose": "^0.30.0",

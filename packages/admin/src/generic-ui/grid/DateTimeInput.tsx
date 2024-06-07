@@ -2,23 +2,24 @@ import {DatePicker} from "antd";
 import dayjs from "dayjs";
 import locale from "./locale.ru";
 import type {CustomCellEditorProps} from "ag-grid-react";
-export type DateTimeInput =  {
+export type DateInput =  {
     readOnly?:boolean,
     onChange?:(value:string)=>void,
 }
 
-export const DateTimeInput = ({onChange,value,readOnly,onValueChange,stopEditing}:  CustomCellEditorProps<any, string> & DateTimeInput) => {
+export const DateTimeInput = ({onChange,value,readOnly,onValueChange,stopEditing}: CustomCellEditorProps<any, string> & DateInput) => {
     const readOnlyProps = readOnly
         ? { inputReadOnly:Boolean(value), open:value ? false : undefined}
         :{}
     return <DatePicker
-
+        showTime={true}
                    locale={locale} value={value === undefined? undefined: dayjs(value)}
                    onChange={ e => {
+                       const value = e? e.toDate().toISOString(): undefined;
                        if(onChange)
-                       onChange(e.toDate().toISOString())
+                       onChange(value)
                        if(onValueChange)
-                       onValueChange(e.toDate().toISOString())
+                       onValueChange(value)
                        if(stopEditing)
                            stopEditing()
                    }}

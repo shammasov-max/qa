@@ -1,6 +1,7 @@
 import chroma from "chroma-js";
 import { AttrFactory, createEntitySlice } from "@shammasov/mydux";
-import {generateGuid} from "@shammasov/utils";
+import { generateGuid, randomElement }    from "@shammasov/utils";
+import { faker }                          from '@faker-js/faker'
 
 export const Roles =['Администратор','Руководитель','Сотрудник']as const
 export type Role = typeof Roles[number]
@@ -10,6 +11,7 @@ const usersRaw = createEntitySlice(
     email: AttrFactory.string({
       headerName: "Email",
       required: true,
+        faker: () => faker.internet.email(),
       trim: true,
       toLowerCase: true,
       unique: true,
@@ -17,22 +19,38 @@ const usersRaw = createEntitySlice(
     }),
     password: AttrFactory.string({
       headerName: "Пароль",
-
+      faker: () => faker.internet.password({length :6}),
       required: true,
       colDef: false,
     }),
     name: AttrFactory.string({
+        faker:()=>
+            faker.person.fullName(),
+
       required: true,
       colDef: { width: 250 },
       headerName: "ФИО",
     }),
-        role: AttrFactory.enum({
+      color:AttrFactory.string({
+          required:true,
+          headerName:'Цвет',
+          colDef: {
+              width: 50
+          },
+          faker: () => randomElement(uiAvatarColors)
+      }),
+
+      role: AttrFactory.enum({
+          faker: ()=>'Сотрудник',
           required: true,
           headerName: "Роль",
           enum:Roles as const
 
-        }),
+      }),
       projectIds: AttrFactory.listOf({
+          colDef:{
+            minWidth: 300
+          },
           headerName: "Проекты",
           refEID: "projects",
           tsType: [] as string[],
@@ -53,7 +71,7 @@ const usersRaw = createEntitySlice(
         })*/
     },
 
-    getItemName: (item) => item.firstName + " " + item.lastName,
+    getItemName: (item) => item.name,
     langRU: {
       singular: "Пользователь",
       plural: "Пользователи",
@@ -108,6 +126,10 @@ var uiAvatarColors = [
     '#d8cfc3',
     '#14c5ff',
 ] as const
+
+export const getGravatarTextColor = (bgColor='#b9ab9f')=>
+    chroma.contrast(bgColor, '#f5f6f9') > chroma.contrast(bgColor, '#383a3e')
+    ? 'f5f6f9' : '383a3e'
 let fontColors = ['#f5f6f9', '#383a3e'] as const
 var generateGravatar = (index, n, s) => {
     const num = index % uiAvatarColors.length
@@ -116,8 +138,7 @@ var generateGravatar = (index, n, s) => {
     const c1 = chroma.contrast(bgColor, '#f5f6f9')
     const c2 = chroma.contrast(bgColor, '#383a3e')
 
-    const color = chroma.contrast(bgColor, '#f5f6f9') > chroma.contrast(bgColor, '#383a3e')
-        ? 'f5f6f9' : '383a3e'
+    const color = getGravatarTextColor(bgColor)
     return `https://ui-avatars.com/api/?background=${bgColor.substring(1)}&font-size=${0.4}&color=${color}&format=svg&name=${n}+${s}`
 }
 

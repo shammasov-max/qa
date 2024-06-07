@@ -20,7 +20,7 @@ import type { SliceSelectors } from "@reduxjs/toolkit/src/createSlice.ts";
 import {
   type AnyAttributes,
   commonAttrs,
-  type EmpheralAttributes,
+
   type ItemByAttrs,
 } from "./attrs.ts";
 import { EntityState as EntityStateRaw } from "@reduxjs/toolkit/dist/entities/models";
@@ -61,7 +61,7 @@ export type StateWithEntityByEIDAttrs<Attrs extends AnyAttributes,EID extends st
 }
 
 
-export const createEntitySlice = <Attrs extends EmpheralAttributes = AnyAttributes ,EID extends string = string>
+export const createEntitySlice = <Attrs extends AnyAttributes ,EID extends string = string>
 (EID: EID, attributes: Attrs,{langRU,selectors,...rest}: EntityOptions< Attrs,EID>) => {
     type Item = ItemByAttrs<Attrs>
 type RootState = StateWith<CamelCase<EID>, EntityStateRaw<Item, string>>

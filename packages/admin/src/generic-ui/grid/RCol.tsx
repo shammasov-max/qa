@@ -18,8 +18,8 @@ import type {
 } from "ag-grid-community";
 import type { Resolve } from "@shammasov/utils";
 import type { CustomCellEditorProps } from "ag-grid-react";
-import { Attachment } from "./Attachmen";
-import {DateTimeInput} from "./DateTimeInput";
+import { Attachment }         from "./Attachmen";
+import {DateInput}            from "./DateInput.tsx";
 import {createReferenceInput} from "./ReferenceInput";
 
 interface ICar {
@@ -104,11 +104,11 @@ export const useColumns = <
             colInit.width = 70
         }
         if(attr.type === 'datetime') {
-            colInit.cellEditor =  DateTimeInput,
+            colInit.cellEditor =  DateInput,
             colInit.cellRenderer ='agDateStringCellRenderer'
             /**',* (props: CustomCellEditorProps<any, string>) => {
 
-                return <DateTimeInput value={props.value} readOnly={true}  onChange={props.onValueChange} />
+                return <DateInput value={props.value} readOnly={true}  onChange={props.onValueChange} />
             }*/
             colInit.cellEditorPopup=true
 
@@ -165,6 +165,7 @@ export const useColumns = <
             return {
                 ...colInit,
                 cellClassRules,
+                cellEditorPopup: true,
                 cellRenderer:createReferenceInput(attr),
                 cellEditor: createReferenceInput(attr),
 

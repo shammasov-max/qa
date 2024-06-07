@@ -4,8 +4,10 @@ import type { ColDef } from "ag-grid-community";
 import { mergeDeepRight } from "ramda";
 import { AntdNiceFormField } from "@ebay/nice-form-react/lib/cjs/adapters/antdAdapter";
 import {DeepPartial} from "utility-types";
-import dayjs from "dayjs";
-import {DateTimeInput} from "admin/src/generic-ui/grid/DateTimeInput";
+import dayjs          from "dayjs";
+import {DateInput}                                from "admin/src/generic-ui/grid/DateInput";
+import { DatePicker, Input, InputNumber, Switch } from 'antd'
+import { DateTimeInput }                          from 'admin/src/generic-ui/grid/DateTimeInput.tsx'
 
 export type Empty = Record<string, never> & { a: 4 };
 export type AttrCommonMeta = {
@@ -17,7 +19,7 @@ export type AttrCommonMeta = {
     colDef?: ColDef | false
     select?: boolean
     name?:string
-    faker?: (attr:AnyAttrMeta,item: object, state: objetc) => any,
+    faker?: (attr,item: object, state: object) => any,
     formField:Partial<AntdNiceFormField>
 }
 
@@ -42,7 +44,7 @@ const createAttributesFactory =  <
     AttrType extends string = 'string',
     TsType extends any = string,
     OwnOptions extends {default?:DefaultValueMeta<TsType>} = {default?:DefaultValueMeta<TsType>},
-> (type:AttrType, { parseOptions}: AttributesFactoryOptions<
+> (type:AttrType, { parseOptions }: AttributesFactoryOptions<
     TsType,
     OwnOptions
     > ) => {
@@ -111,7 +113,7 @@ export const AttrFactory = {
 
             formField.options = [{value:opts.refEID,label:opts.refEID}]
 
-            return mergeDeepRight({...opts}, {multiple: true, tsType: [] as any as string[]})
+            return mergeDeepRight({...opts}, {multiple: true, tsType: [] as any as string[], default: []})
         }
     }),
     list: createAttributesFactory('list',{
@@ -123,15 +125,16 @@ export const AttrFactory = {
     }),
     attachment: createSimpleAttrFactory('attachment',{}),
     string: createSimpleAttrFactory('string',{}),
+    description: createSimpleAttrFactory('string',{widget:Input.TextArea}),
     password: createSimpleAttrFactory('password',{}),
     text: createSimpleAttrFactory('text',{}),
-    date: createSimpleAttrFactory('date',{}),
-    datetime: createSimpleAttrFactory('datetime',{}),
+    date: createSimpleAttrFactory('date',{widget:DateInput}),
+    datetime: createSimpleAttrFactory('datetime',{widget:DateTimeInput}),
     image: createSimpleAttrFactory('image',{}),
-    number: createSimpleAttrFactory('number',{},4),
-    boolean: createSimpleAttrFactory('boolean', {},true),
+    number: createSimpleAttrFactory('number',{widget: InputNumber},4),
+    boolean: createSimpleAttrFactory('boolean', {widget:Switch},true),
     uint: createSimpleAttrFactory('uint',{},0),
-    int: createSimpleAttrFactory('int',{},0),
+    int: createSimpleAttrFactory('int',{widget: InputNumber},0),
     timestamp: createSimpleAttrFactory('timestamp',{},0),
 
     enum: createAttributesFactory('enum',{
@@ -150,19 +153,18 @@ export const AttrFactory = {
 export type AttrType = keyof typeof AttrFactory
 export type AnyAttr = typeof AttrFactory[AttrType]
 export type AnyAttrMeta = ReturnType<typeof AttrFactory[AttrType]>
-export type EmpheralAttributes = {[key: string]: AnyAttrMeta}
 
 
 export const commonAttrs =<EID extends string>(eid: EID) => ({
     id: AttrFactory.id({headerName: 'ID', default: () => generateGuid(),formField:{key:'id',name:'id',label:'ID'} }),
     removed: AttrFactory.boolean({select: false, colDef: false, formField:{}}),
-    addedAtTS: AttrFactory.datetime({headerName:'Добавлен', default: () => dayjs(),formField:{widget:DateTimeInput}})
+    addedAtTS: AttrFactory.datetime({headerName:'Добавлен', default: () => new Date().toISOString(),faker: () => new Date().toISOString(),formField:{widget:DateInput}})
 })
 
 export type CommonAttrs<EID extends string> = ReturnType<typeof commonAttrs>
 
 
-export type AnyAttributes<EID extends string = string> =  EmpheralAttributes
-export type ItemByAttrs<Attrs extends EmpheralAttributes, EID extends string = string> ={
+export type AnyAttributes<EID extends string = string> =  {[key: string]: AnyAttrMeta}
+export type ItemByAttrs<Attrs extends AnyAttributes, EID extends string = string> ={
     [K in keyof (CommonAttrs<EID> & Attrs)]: (CommonAttrs<EID> & Attrs)[K]['tsType']
 }

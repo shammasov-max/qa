@@ -1,11 +1,17 @@
-import type {AnyEntitySlice} from "iso";
-import {entityModalFactory} from "../generic-ui/EntityModal";
-import {useAdminSelector} from "../app/buildAdminStore.ts";
-import {useModal} from "@ebay/nice-modal-react";
-import PanelRGrid from "../generic-ui/grid/PanelRGrid";
-import {Button} from "antd";
+import type {AnyEntitySlice}               from "iso";
+import {entityModalFactory}                from "../generic-ui/EntityModal";
+import {useAdminSelector}                  from "../app/buildAdminStore.ts";
+import {useModal}                          from "@ebay/nice-modal-react";
+import PanelRGrid, { type PatchColumns }   from "../generic-ui/grid/PanelRGrid";
+import {Button}                                         from "antd";
+import type { AnyAttributes, EntitySlice, ItemByAttrs } from '@shammasov/mydux'
 
-export const createGenericPagesForEntity = <E extends AnyEntitySlice>(entitySlice: AnyEntitySlice) => {
+export const createGenericPagesForEntity = <
+    Attrs extends AnyAttributes = AnyAttributes,
+    K extends keyof ItemByAttrs<Attrs> = ItemByAttrs<Attrs>,
+    EID extends string = string,
+    E extends EntitySlice<Attr,EID> = EntitySlice<Attr,EID>,
+> (entitySlice: E,pathColumns?: PatchColumns<E>) => {
 
 
 
@@ -41,6 +47,7 @@ export const createGenericPagesForEntity = <E extends AnyEntitySlice>(entitySlic
                 title={entitySlice.langRU.plural}
                 resource={entitySlice}
                 rowData={list}
+                patchColumns={pathColumns}
             ></PanelRGrid>
         );
     };

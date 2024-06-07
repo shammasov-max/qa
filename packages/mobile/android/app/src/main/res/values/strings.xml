@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">qtracker</string>
+    <string name="title_activity_main">qtracker</string>
+    <string name="package_name">com.shammasov.qtracker</string>
+    <string name="custom_url_scheme">com.shammasov.qtracker</string>
+</resources>
