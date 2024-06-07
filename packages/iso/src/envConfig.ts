@@ -7,23 +7,23 @@ import { defineEnvConfig } from "../../@shammasov/utils/src/define-env-config";
 
 export const config = defineEnvConfig({
   test: {
-    VITE_FRONT_PORT: 19002,
+    VITE_FRONT_PORT: 20002,
     FRONTEND_HOST: localDomain,
-    ADMIN_HOST: "http://localhost:19002/",
+    ADMIN_HOST: "http://localhost:20002/",
     MONGO_URI: "mongodb://localhost/qa_test",
     POSTGRES_URI: `postgres://root:BuildMeUp@${devDomain}:37432/dev`,
     WRITE_PG: false,
   },
   local: {
-    VITE_FRONT_PORT: 19002,
+    VITE_FRONT_PORT: 20002,
     FRONTEND_HOST: localDomain,
-    ADMIN_HOST: "http://localhost:19002/",
+    ADMIN_HOST: "http://localhost:20002/",
     MONGO_URI: "mongodb://localhost/qa_local",
     POSTGRES_URI: `postgres://root:BuildMeUp@${devDomain}:37432/dev`,
     WRITE_PG: false,
   },
   development: {
-    VITE_FRONT_PORT: 19002,
+    VITE_FRONT_PORT: 20002,
     FRONTEND_HOST: "https://dev.godj.pro/",
     ADMIN_HOST: "https://dev-admin.godj.pro/",
     MONGO_URI: "mongodb://dev:BuildMeUp@dev.godj.pro:19017/dev",
@@ -31,7 +31,7 @@ export const config = defineEnvConfig({
     WRITE_PG: false,
   },
   production: {
-    VITE_FRONT_PORT: 19002,
+    VITE_FRONT_PORT: 20002,
     FRONTEND_HOST: "https://godj.pro/",
     ADMIN_HOST: "https://admin.godj.pro/",
     MONGO_URI: "mongodb://dev:BuildMeUp@dev.godj.pro:19017/qa_local_dev",
@@ -39,10 +39,10 @@ export const config = defineEnvConfig({
     WRITE_PG: false,
   },
 }).addConsts({
-  PORT: 19000,
-  SERVER_PORT: 19000,
+  PORT: 20000,
+  SERVER_PORT: 20000,
 
-  VITE_ADMIN_PORT: 19002,
+  VITE_ADMIN_PORT: 20002,
 });
 
 export const envConf = config
