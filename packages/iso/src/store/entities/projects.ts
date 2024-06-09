@@ -1,31 +1,14 @@
-import { AttrFactory, createEntitySlice } from "@shammasov/mydux";
+import { AttrFactory, createEntitySlice } from "@common/mydux";
 import { faker }                          from '@faker-js/faker'
 
 export const PROJECTS = createEntitySlice(
   "projects",
   {
-    name: AttrFactory.string({
-      headerName: "Название проекта",
-      required: true,
-        unique: true,
-        faker: () => faker.company.name()
-    }),
-      description: AttrFactory.description({
-          headerName: "Описание проекта",
-          required: true,
-          faker: () => faker.lorem.sentence({ min: 6, max: 15 }),
-      }),
-    usersIds: AttrFactory.listOf({
-        headerName: "Участники",
-        refEID: "users",
-        tsType: [] as string[],
-        default: [],
-    }),
-    image: AttrFactory.string({
-        headerName: "Изображение",
-        faker: () => faker.image.urlLoremFlickr({ width: 544, height:366 }),
-
-      }),
+    name: AttrFactory.string({headerName: "Название проекта", required: true, faker: () => faker.company.name()}),
+    description: AttrFactory.description({headerName: "Описание проекта", required: true, faker: () => faker.lorem.sentence({ min: 6, max: 15 }),}),
+    // пользователи которым доступен проект
+    usersIds: AttrFactory.listOf({headerName: "Участники", refEID: "users", tsType: [] as string[], default: [],}),
+    image: AttrFactory.string({headerName: "Изображение", faker: () => faker.image.urlLoremFlickr({ width: 544, height:366 }),}),
 
   },
   {

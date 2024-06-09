@@ -1,0 +1,14 @@
+{
+  "name": "@common/mydux-backend",
+  "version": "0.2.0",
+  "main": "src/",
+  "files": [
+    "src"
+  ],
+  "typings": "src",
+  "dependencies": {
+    "@common/mydux": "workspace:^0.2.0",
+    "@common/utils": "workspace:^0.2.0",
+    "uuid": "^3.4.0"
+  }
+}

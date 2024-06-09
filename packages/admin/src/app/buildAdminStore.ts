@@ -10,7 +10,7 @@ import {
   contextBuilder,
   dispatcherSlice,
   HistoryService,
-} from "@shammasov/mydux";
+} from "@common/mydux";
 import { ORMService } from "iso";
 import {uiSlice} from "../hooks/common/useUI.ts";
 

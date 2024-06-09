@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form";
 import type {Credentials} from "iso";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
-import {hidePreloader, showPreloader} from "@shammasov/mydux/src/connection/globalPreloader.ts";
+import {hidePreloader, showPreloader} from "@common/mydux/src/connection/globalPreloader.ts";
 
 export const useAuth = ({notify = alert, successRedirectTo = '/app'}:{notify?: (message:string) => any , successRedirectTo?: string}) => {
 

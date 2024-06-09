@@ -4,11 +4,11 @@ import {
   broadcastSSEEventsSaga,
   mongoEntitiesSaga,
   MongoService,
-} from "@shammasov/mydux-backend";
-import { getFullSagaContext, getSagaService } from "@shammasov/mydux";
+} from "@common/mydux-backend";
+import { getFullSagaContext, getSagaService } from "@common/mydux";
 import type { BackendStore } from "./buildBackendStore";
 import { logger } from "../logger";
-import {generateGuid, Resolve} from "@shammasov/utils";
+import {generateGuid, Resolve} from "@common/utils";
 
 const log = logger.child({ saga: "rootSaga" });
 

@@ -1,0 +1,12 @@
+{
+  "name": "@common/pino-clickhouse-transport",
+  "version": "0.1.0",
+  "main": "./src/index.ts",
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@clickhouse/client": "^1.0.1",
+    "pino-abstract-transport": "^1.1.0"
+  }
+}

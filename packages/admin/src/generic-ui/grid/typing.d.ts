@@ -2,7 +2,7 @@ import {
   type AnyAttrType,
   type AttrMeta,
   GenericEntitySlice,
-} from "@shammasov/mydux";
+} from "@common/mydux";
 
 declare module "ag-grid-community" {
   interface ColDef<TData = any, TValue = any> {

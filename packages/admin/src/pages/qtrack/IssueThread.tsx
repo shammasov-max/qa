@@ -1,6 +1,6 @@
-import { Comment }                                                       from '@ant-design/compatible'
-import { Avatar, Button, Form, List, message, Radio, Row, Tag, Tooltip } from 'antd'
-import { useAdminSelector }                                              from '../../app/buildAdminStore.ts'
+import { Comment }                                                                   from '@ant-design/compatible'
+import { Avatar, Button, Form, List, message, Radio, Row, Tag, Tooltip, Typography } from 'antd'
+import { useAdminSelector }                                                          from '../../app/buildAdminStore.ts'
 import { COMMENTS, ISSUES, statuses, USERS } from 'iso'
 import { UserPic }                           from '../../elements/UsersGroup.tsx'
 import moment from 'moment'
@@ -50,24 +50,22 @@ const MessagesList = ({issueId}:{issueId: string}) => {
         setValue('')
     }
 
+
+
     const user = useCurrentUser()
+    const response = (issue.assigneeUserId === user.userId || issue.reporterUserId === user.userId || user.role !== 'Сотрудник')
+        ? <Editor
+                         onChange={(e) => setValue(e.target.value)}
+                         onSubmit={() => {onComment()}}
+
+                         value={value}
+                     />
+                     : <div><Typography.Text> Вопрос адресован не вам</Typography.Text></div>
     const usersMap = useAdminSelector(USERS.selectors.selectAsMap);
    return <List
        footer={['Закрыт','Отменён'].includes(issue.status) ? <div>Обсуждение закрыто</div> :
 
-               <Comment
-                   avatar={
-                       <UserPic userId={user.userId} />
-                   }
-                   content={
-                       <Editor
-                           onChange={(e) => setValue(e.target.value)}
-                           onSubmit={() => {onComment()}}
-
-                           value={value}
-                       />
-                   }
-               />
+               response
 
        }
 

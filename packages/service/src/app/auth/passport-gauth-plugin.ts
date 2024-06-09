@@ -4,12 +4,12 @@ import fastifyPassport from "@fastify/passport";
 import fastifySecureSession from "@fastify/secure-session";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { envConf, USERS, type UserVO } from "iso";
-import { generateGuid } from "@shammasov/utils";
+import { generateGuid } from "@common/utils";
 import {
   sseSessionsPlugin,
   type UserSliceExample,
-} from "@shammasov/mydux-backend";
-import type { DispatcherState } from "@shammasov/mydux";
+} from "@common/mydux-backend";
+import type { DispatcherState } from "@common/mydux";
 import { pathOr } from "ramda";
 import { Strategy as JsonStrategy } from "passport-json";
 

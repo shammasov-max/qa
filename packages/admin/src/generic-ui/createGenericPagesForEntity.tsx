@@ -4,7 +4,7 @@ import {useAdminSelector}                  from "../app/buildAdminStore.ts";
 import {useModal}                          from "@ebay/nice-modal-react";
 import PanelRGrid, { type PatchColumns }   from "../generic-ui/grid/PanelRGrid";
 import {Button}                                         from "antd";
-import type { AnyAttributes, EntitySlice, ItemByAttrs } from '@shammasov/mydux'
+import type { AnyAttributes, EntitySlice, ItemByAttrs } from '@common/mydux'
 
 export const createGenericPagesForEntity = <
     Attrs extends AnyAttributes = AnyAttributes,

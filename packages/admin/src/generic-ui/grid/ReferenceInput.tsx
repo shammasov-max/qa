@@ -1,7 +1,7 @@
 import { DatePicker, Select, Tooltip } from 'antd'
 import locale                          from "antd/es/date-picker/locale/ru_RU";
 import type {CustomCellEditorProps} from "ag-grid-react";
-import {AttrFactory, AttrType} from "@shammasov/mydux";
+import {AttrFactory, AttrType} from "@common/mydux";
 import {DefaultOptionType} from "rc-select/lib/Select";
 import {getEntityByTypeName} from "iso";
 import {useSelector} from "react-redux";
@@ -9,7 +9,7 @@ import {reject} from "ramda";
 import ReactSelect from "react-select";
 import  { components, MultiValueGenericProps } from 'react-select';
 import { Space, Typography } from 'antd';
-import { isArray } from '@shammasov/utils'
+import { isArray } from '@common/utils'
 
 const { Text, Link } = Typography;
 

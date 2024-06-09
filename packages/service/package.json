@@ -17,9 +17,9 @@
     "build": "tsc -p ."
   },
   "dependencies": {
-    "@shammasov/mydux": "workspace:^0.2.0",
-    "@shammasov/pino-clickhouse-transport": "workspace:^0.1.0",
-    "@shammasov/utils": "workspace:^0.2.0",
+    "@common/mydux": "workspace:^0.2.0",
+    "@common/pino-clickhouse-transport": "workspace:^0.1.0",
+    "@common/utils": "workspace:^0.2.0",
     "iso": "^0.1.0"
   }
 }

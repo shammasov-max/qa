@@ -3,11 +3,11 @@ import {Button, Form, Modal} from "antd";
 import NiceForm from "antd-form-builder";
 import NiceModal, { antdModal, useModal } from "@ebay/nice-modal-react";
 import type { AnyEntitySlice } from "iso";
-import { ItemByAttrs } from "@shammasov/mydux";
+import { ItemByAttrs } from "@common/mydux";
 import {AntdNiceFormField, AntdNiceFormMeta} from "@ebay/nice-form-react/lib/cjs/adapters/antdAdapter";
 import { DevTool } from "antd-form-devtools";
 import {useDispatch, useSelector} from "react-redux";
-import {generateGuid, isArray, isFunction} from "@shammasov/utils";
+import {generateGuid, isArray, isFunction} from "@common/utils";
 import {createReferenceInput} from "./grid/ReferenceInput.tsx";
 import ReactSelect from 'react-select'
 

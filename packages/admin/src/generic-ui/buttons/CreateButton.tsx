@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { GenericEntitySlice } from "@shammasov/mydux";
+import { GenericEntitySlice } from "@common/mydux";
 import {AntdIcons}            from "../AntdIcons.tsx";
 
 export default ({

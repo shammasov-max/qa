@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Highlighter from "react-highlight-words";
 import type { CustomCellEditorProps } from 'ag-grid-react'
 import type { AnyEntitySlice }                          from 'iso'
-import type { AnyAttributes, EntitySlice, ItemByAttrs } from '@shammasov/mydux'
+import type { AnyAttributes, EntitySlice, ItemByAttrs } from '@common/mydux'
 
 type RCellRenderProps<D = any, V = any> = {
   data: D;

@@ -3,7 +3,7 @@ const devDomain = 'dev.godj.pro' as const
 const prodDomain = 'godj.pro' as const
 
 
-import { defineEnvConfig } from "../../@shammasov/utils/src/define-env-config";
+import { defineEnvConfig } from "../../@common/utils/src/define-env-config";
 
 export const config = defineEnvConfig({
   test: {

@@ -11,7 +11,7 @@ import "../../app/rengin-theme.css";
 import "../../app/admin.css";
 import { ItemByEntity } from "iso";
 import { RCellRender } from "./RCellRender";
-import { GenericEntitySlice } from "@shammasov/mydux";
+import { GenericEntitySlice } from "@common/mydux";
 
 export type RGridProps<S extends GenericEntitySlice> = AgGridReactProps<
   ItemByEntity<S>

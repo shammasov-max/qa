@@ -10,7 +10,7 @@ export const loggerTransport = {
       options: { translateTime: "HH:MM:ss Z", ignore: "pid,hostname" },
     },
     /*   {   level:'debug',
-            target: "@shammasov/pino-clickhouse-transport",
+            target: "@common/pino-clickhouse-transport",
             options: {
                 client: {
                     username:'default',

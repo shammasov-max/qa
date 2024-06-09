@@ -1,4 +1,4 @@
-import mainFunctionWrapper from "@shammasov/utils/src/main-function-wrapper";
+import mainFunctionWrapper from "@common/utils/src/main-function-wrapper";
 import hmr from "node-hmr";
 import { logger } from "./logger";
 

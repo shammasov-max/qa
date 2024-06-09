@@ -11,6 +11,7 @@ import DeleteButton                                      from '../generic-ui/but
 import { useDispatch }                                   from 'react-redux'
 import EditButton                                        from '../generic-ui/buttons/EditButton.tsx'
 import UsersGroup                                        from '../elements/UsersGroup.tsx'
+import useCurrentUser from '../hooks/useCurrentUser.ts'
 Typography
 const Text = Typography.Text;
 export const ProjectModal = entityModalFactory(PROJECTS);
@@ -30,13 +31,13 @@ export const ProjectsList = () => {
         });
 
     };
-
-
+const user = useCurrentUser()
+const data = user.role === 'Администратор'? list : list.filter(p => p.userIds.includes(user.id))
     return    <div><Row justify={'end'}><CreateButton resource={PROJECTS} onCreate={onItemAdd}/></Row> <List
         className="demo-loadmore-list"
 
        pagination={{}}
-        dataSource={list}
+        dataSource={data}
         itemLayout="vertical"
         size="large"
         renderItem={ item => (
@@ -56,7 +57,7 @@ export const ProjectListItem = ({item}:{item: ProjectVO}) => {
             id: itemId,
             formId: "entityFormId",
         });
-    };
+    }
 
     return <List.Item
 

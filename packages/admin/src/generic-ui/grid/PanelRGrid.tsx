@@ -10,7 +10,7 @@ import DeleteButton                                    from "../buttons/DeleteBu
 import CancelButton from "../buttons/CancelButton";
 import CreateButton from "../buttons/CreateButton";
 import { RCellRender } from "./RCellRender";
-import { GenericEntitySlice } from "@shammasov/mydux";
+import { GenericEntitySlice } from "@common/mydux";
 import { useAdminSelector } from "../../app/buildAdminStore";
 import type { ColDef } from "ag-grid-community";
 

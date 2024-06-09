@@ -1,4 +1,4 @@
-import {AnyAttributes, EntitySlice} from "@shammasov/mydux";
+import {AnyAttributes, EntitySlice} from "@common/mydux";
 
 export default <Attrs extends AnyAttributes,EID extends string>(entity:EntitySlice<Attrs,EID> ) => ({
     view: () => '/app/in/'+entity.EID,

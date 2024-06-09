@@ -1,6 +1,6 @@
 import chroma from "chroma-js";
-import { AttrFactory, createEntitySlice } from "@shammasov/mydux";
-import { generateGuid, randomElement }    from "@shammasov/utils";
+import { AttrFactory, createEntitySlice } from "@common/mydux";
+import { generateGuid, randomElement }    from "@common/utils";
 import { faker }                          from '@faker-js/faker'
 
 export const Roles =['Администратор','Руководитель','Сотрудник']as const
@@ -8,54 +8,11 @@ export type Role = typeof Roles[number]
 const usersRaw = createEntitySlice(
   "users",
   {
-    email: AttrFactory.string({
-      headerName: "Email",
-      required: true,
-        faker: () => faker.internet.email(),
-      trim: true,
-      toLowerCase: true,
-      unique: true,
-      colDef: { width: 250 },
-    }),
-    password: AttrFactory.string({
-      headerName: "Пароль",
-      faker: () => faker.internet.password({length :6}),
-      required: true,
-      colDef: false,
-    }),
-    name: AttrFactory.string({
-        faker:()=>
-            faker.person.fullName(),
-
-      required: true,
-      colDef: { width: 250 },
-      headerName: "ФИО",
-    }),
-      color:AttrFactory.string({
-          required:true,
-          headerName:'Цвет',
-          colDef: {
-              width: 50
-          },
-          faker: () => randomElement(uiAvatarColors)
-      }),
-
-      role: AttrFactory.enum({
-          faker: ()=>'Сотрудник',
-          required: true,
-          headerName: "Роль",
-          enum:Roles as const
-
-      }),
-      projectIds: AttrFactory.listOf({
-          colDef:{
-            minWidth: 300
-          },
-          headerName: "Проекты",
-          refEID: "projects",
-          tsType: [] as string[],
-          default: [],
-      })
+    email: AttrFactory.string({headerName: "Email", required: true, faker: () => faker.internet.email(), trim: true, toLowerCase: true, unique: true, colDef: { width: 250 },}),
+    password: AttrFactory.string({headerName: "Пароль", faker: () => faker.internet.password({length :6}), required: true, colDef: false,}),
+    name: AttrFactory.string({headerName: "ФИО",faker:()=> faker.person.fullName(), required: true, colDef: { width: 250 },}),
+    color:AttrFactory.string({required:true, headerName:'Цвет', colDef: {width: 50}, faker: () => randomElement(uiAvatarColors)}),
+    role: AttrFactory.enum({faker: ()=>'Сотрудник', required: true, headerName: "Роль", enum:Roles as const}),
   },
   {
     extraEntityReducers: (builder) => {

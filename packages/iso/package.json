@@ -10,8 +10,8 @@
   "version": "0.1.0",
   "homepage": "",
   "dependencies": {
-    "@shammasov/mydux": "workspace:^0.2.0",
-    "@shammasov/utils": "workspace:^0.2.0",
+    "@common/mydux": "workspace:^0.2.0",
+    "@common/utils": "workspace:^0.2.0",
     "scene": "0.1.4",
     "service": "0.1.0"
   }

@@ -95,8 +95,8 @@ const currentUser = useCurrentUser()
             key: 'id',
             render: (text, item) => (
                 <Space>
-                    <EditButton onEdit={() => onItemEdit(item.id)}/>
-                    <DeleteButton onClick={() => dispatch(ISSUES.actions.removed(item.id))}/>
+                    <EditButton onEdit={() => onItemEdit(item.id)} disabled={currentUser!=='Сотрудник'}/>
+                    <DeleteButton onClick={() => dispatch(ISSUES.actions.removed(item.id))} disabled={currentUser!=='Сотрудник'}/>
                 </Space>
             ),
         },

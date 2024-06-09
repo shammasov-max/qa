@@ -9,14 +9,14 @@ import {
   UploadImageCellRenderer,
 } from "./UploadImageCellEditor";
 
-import { GenericEntitySlice, ItemByAttrs } from "@shammasov/mydux";
+import { GenericEntitySlice, ItemByAttrs } from "@common/mydux";
 
 import type {
   CellClassRules,
   ColDef,
   ValueSetterFunc,
 } from "ag-grid-community";
-import type { Resolve } from "@shammasov/utils";
+import type { Resolve } from "@common/utils";
 import type { CustomCellEditorProps } from "ag-grid-react";
 import { Attachment }         from "./Attachmen";
 import {DateInput}            from "./DateInput.tsx";

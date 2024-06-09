@@ -4,13 +4,13 @@ import {
   contextBuilder,
   dispatcherSlice,
   RuntimeService,
-} from "@shammasov/mydux";
+} from "@common/mydux";
 import { ORMService } from "iso";
 import {
   createEventStoreMiddleware,
   MongoService,
-} from "@shammasov/mydux-backend";
-//import { PostgresService }                                               from '@shammasov/mydux-backend/src/PGService.ts'
+} from "@common/mydux-backend";
+//import { PostgresService }                                               from '@common/mydux-backend/src/PGService.ts'
 
 const contextConfigurator = contextBuilder()
     .add(ORMService)

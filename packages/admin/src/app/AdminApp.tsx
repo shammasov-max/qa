@@ -10,7 +10,7 @@ import {
   connectionSaga,
   connectionSlice,
   SSEReadyStatesEnum,
-} from "@shammasov/mydux";
+} from "@common/mydux";
 import "./admin.css";
 import * as ReactDom from "react-dom/client";
 import {ConfigProvider, Empty, Layout, Menu} from "antd";

@@ -3,7 +3,7 @@ import type {
   CustomCellRendererProps,
 } from "ag-grid-react";
 import { Button, message, Upload, type UploadProps } from "antd";
-import { generateGuid } from "@shammasov/utils";
+import { generateGuid } from "@common/utils";
 import { UploadOutlined } from "@ant-design/icons";
 
 export const Attachment = {

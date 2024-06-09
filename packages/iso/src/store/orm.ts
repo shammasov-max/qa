@@ -4,10 +4,10 @@ import {
   GenericEntitySlice,
   ServiceFactory,
   toLowerCase,
-} from "@shammasov/mydux";
+} from "@common/mydux";
 import { useSelector } from "react-redux";
-import "@shammasov/utils";
-import { Simplify } from "@shammasov/utils";
+import "@common/utils";
+import { Simplify } from "@common/utils";
 
 const xyz = { x: 1, y: 2, z: 3 } as const;
 

@@ -2,7 +2,7 @@
     "workspaces": {
         "packages": [
             "./packages/*",
-            "./packages/@shammasov/*"
+            "./packages/@common/*"
         ],
         "nohoist": [
             "**/graph-tabs",
@@ -24,7 +24,7 @@
     "scripts": {
         "build": "yarn build:styles && yarn build:front && yarn build:admin",
         "build:front": "yarn workspace front front:build:dev",
-        "db:dev": "ssh -L 27017:localhost:27017 root@shammasov.com",
+        "db:dev": "ssh -L 27017:localhost:27017 root@common.com",
         "dev:admin": "yarn workspace admin dev:admin",
         "dev:front": "yarn workspace front dev:admin",
         "dev:service": "yarn workspace service dev:service",
