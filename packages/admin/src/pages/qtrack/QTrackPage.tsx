@@ -22,6 +22,7 @@ const dispatch = useDispatch()
 const projectsList  = useSelector(PROJECTS.selectors.selectAll);
     const projectsMap = useSelector(PROJECTS.selectors.selectAsMap);
     const list: IssueVO[] = useAdminSelector(ISSUES.selectors.selectAll);
+    const issuesList = projectId ? list.filter(item => item.projectId === projectId): list
 const currentUser = useCurrentUser()
 
     const itemModal = useModal(ItemModal);
@@ -101,7 +102,8 @@ const currentUser = useCurrentUser()
             ),
         },
     ];
-    const data = list.map(item => ({
+
+    const data = issuesList.map(item => ({
        ...item,
         key: item.id,
     }));

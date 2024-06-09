@@ -38,10 +38,19 @@ export const entityModalFactory = <
             const result = {
                 initialValues:  { id: generateGuid() },
                 fields: entitySlice.attributesList
-                    .filter((a) => a.select !== false)
+                    .filter((a) => a.select !== false && a.name !== 'id')
                     .map((attr) => {
                         const formField: AntdNiceFormField = {...attr.formField};
                         formField.attr = attr
+                        if(formField.required) {
+                            formField.required = undefined;
+                            formField.rules = [
+                                {
+                                    required: true,
+                                    message: `Укажте ${attr.headerName}!`,
+                                },
+                            ];
+                        }
                         formField.initialValue = isFunction(attr.default) ? attr.default(item) : item[attr.name];
                     if(attr.type === 'itemOf' || attr.type === 'listOf') {
                         formField.widget = createReferenceInput(attr)

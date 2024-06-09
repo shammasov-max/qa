@@ -8,7 +8,6 @@ export const pathnames = {
     COMMENTS: '/app/comments',
     ISSUES: '/app/issues',
     PROJECTS: '/app/projects',
-    TOPICS: '/app/topics',
 
 
 }

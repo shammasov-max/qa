@@ -1,4 +1,4 @@
-import {USERS,PROJECTS,ISSUES,TOPICS,COMMENTS,} from "./entities";
+import {USERS,PROJECTS,ISSUES,COMMENTS,} from "./entities";
 import {
   composeEntitiesOrm,
   GenericEntitySlice,
@@ -12,10 +12,10 @@ import { Simplify } from "@common/utils";
 const xyz = { x: 1, y: 2, z: 3 } as const;
 
 
-export const orm = composeEntitiesOrm({USERS,PROJECTS,ISSUES,TOPICS,COMMENTS})
+export const orm = composeEntitiesOrm({USERS,PROJECTS,ISSUES,COMMENTS})
 
 
-export const ENTITIES_LIST = [   USERS,PROJECTS,ISSUES,TOPICS,COMMENTS] as const//orm.tuple
+export const ENTITIES_LIST = [   USERS,PROJECTS,ISSUES,COMMENTS] as const//orm.tuple
 export type AnyEntitySlice = typeof ENTITIES_LIST[number]
 export const ENTITIES_MAP = orm.entitiesMap
 export const ENTITY_TYPE_NAMES = [...ENTITIES_LIST.map(s => s.EID)] as const

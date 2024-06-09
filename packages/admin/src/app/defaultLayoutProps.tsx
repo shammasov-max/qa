@@ -11,7 +11,7 @@ export default (role: Role) =>{
         route: {
 
             routes: [
-                {
+       /*         {
                     path: "/app/income",
                     name: "Спросили у меня",
                     icon: <MailOutlined />,
@@ -21,7 +21,7 @@ export default (role: Role) =>{
                     name: "Жду ответа",
                     icon: <MailOutlined />,
                 },
-
+*/
                 {
                     path: "/app/issues",
                     name: "Вопросы",

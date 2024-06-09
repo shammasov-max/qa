@@ -22,7 +22,7 @@ import LoginForm from "./auth/LoginForm";
 import AppLayout from "./AppLayout";
 import {UsersComponents} from "../pages/UsersPage";
 import { createEntityPages } from '../pages/core.tsx'
-import { COMMENTS, ISSUES, TOPICS } from 'iso'
+import { COMMENTS, ISSUES } from 'iso'
 import { createGenericPagesForEntity } from '../generic-ui/createGenericPagesForEntity.tsx'
 import QTrackPage                            from '../pages/qtrack/QTrackPage.tsx'
 
@@ -107,7 +107,6 @@ const Preloader = () => {
 
 const IssuesPages =createGenericPagesForEntity(ISSUES)
 const CommentsPages = createGenericPagesForEntity(COMMENTS)
-const TopicsPages = createGenericPagesForEntity(TOPICS)
 const AdminLayout = () =>
     <Layout>
         <Sider breakpoint="lg" >

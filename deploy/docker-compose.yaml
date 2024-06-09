@@ -10,7 +10,7 @@ services:
 #      - MONGO_INITDB_ROOT_PASSWORD=BuildMeUp
 #      - MONGO_INITDB_DATABASE=admin
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
      - ${GODJ_DATA:-.}/.volumes/mongo:/data/db
      #- ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
